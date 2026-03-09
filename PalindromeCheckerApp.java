@@ -29,7 +29,7 @@ public class PalindromeCheckerApp {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a word: ");
+        System.out.print("Enter a   word: ");
         String word = sc.nextLine();
 
         if(isPalindrome(word))
