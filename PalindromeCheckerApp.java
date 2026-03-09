@@ -1,41 +1,43 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class PalindromeCheckerApp {
-    public static void  main(String arg[]){
-        Scanner sc = new Scanner(System.in);
+   public static boolean isPalindrome(String str) {
+        Deque<Character> deque = new ArrayDeque<>();
 
-        System.out.print("Enter a string: ");
-        String input = sc.nextLine();
+        // Insert characters into deque
+        for(char c : str.toCharArray()) {
+            deque.addLast(c);
+        }
 
-        input = input.toLowerCase(); 
+        // Compare front and rear
+        while(deque.size() > 1) {
 
-        Stack<Character> stack = new Stack<>();
-        Queue<Character> queue = new LinkedList<>();
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
 
-        for (int i = 0; i < input.length(); i++) {
-            char ch = input.charAt(i);
-            stack.push(ch);
-            queue.add(ch);  
-
-        boolean isPalindrome = true;
-
-
-        while (!queue.isEmpty()) {
-            if (queue.remove() != stack.pop()) {
-                isPalindrome = false;
-                break;
+            if(first != last) {
+                return false;
             }
         }
 
-        if (isPalindrome)
-            System.out.println("It is a Palindrome.");
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a word: ");
+        String word = sc.nextLine();
+
+        if(isPalindrome(word))
+            System.out.println("Palindrome");
         else
-            System.out.println("Not a Palindrome.");
+            System.out.println("Not a Palindrome");
 
         sc.close();
-    }
+    
 }
 }
