@@ -1,14 +1,28 @@
 import java.util.Stack;
-import java.util.Scanner;
+import java.util.ArrayDeque;
 
-interface PalindromeStrategy {
-    boolean check(String str);
-}
+public class PalindromePerformance {
 
-class StackStrategy implements PalindromeStrategy {
+    public static boolean reverseMethod(String str) {
+        String reversed = new StringBuilder(str).reverse().toString();
+        return str.equals(reversed);
+    }
 
-    public boolean check(String str) {
+    public static boolean twoPointerMethod(String str) {
+        int left = 0;
+        int right = str.length() - 1;
 
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    public static boolean stackMethod(String str) {
         Stack<Character> stack = new Stack<>();
 
         for (char c : str.toCharArray()) {
@@ -20,43 +34,34 @@ class StackStrategy implements PalindromeStrategy {
                 return false;
             }
         }
-
         return true;
     }
-}
-
-class PalindromeContext {
-
-    private PalindromeStrategy strategy;
-
-    public PalindromeContext(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public boolean checkPalindrome(String str) {
-        return strategy.check(str);
-    }
-}
-
-
-
-public class Main {
 
     public static void main(String[] args) {
 
-       Scanner sc = new Scanner(System.in);
+        String input = "racecar";
 
-        System.out.print("Enter a string: ");
-        String input = sc.nextLine();
+        long start1 = System.nanoTime();
+        boolean result1 = reverseMethod(input);
+        long end1 = System.nanoTime();
 
-        PalindromeStrategy strategy = new StackStrategy();
-        PalindromeContext context = new PalindromeContext(strategy);
+        long start2 = System.nanoTime();
+        boolean result2 = twoPointerMethod(input);
+        long end2 = System.nanoTime();
 
-        if (context.checkPalindrome(input))
-            System.out.println("Palindrome");
-        else
-            System.out.println("Not Palindrome");
+        long start3 = System.nanoTime();
+        boolean result3 = stackMethod(input);
+        long end3 = System.nanoTime();
 
-        sc.close();
+        System.out.println("Input: " + input);
+
+        System.out.println("\nReverse Method: " + result1);
+        System.out.println("Execution Time: " + (end1 - start1) + " ns");
+
+        System.out.println("\nTwo Pointer Method: " + result2);
+        System.out.println("Execution Time: " + (end2 - start2) + " ns");
+
+        System.out.println("\nStack Method: " + result3);
+        System.out.println("Execution Time: " + (end3 - start3) + " ns");
     }
 }
