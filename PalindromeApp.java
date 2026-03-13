@@ -1,9 +1,8 @@
 
 public class PalindromeApp {
-      static boolean isPalindrome(String str) {
+       public boolean checkPalindrome(String str) {
 
-        str = str.toLowerCase();
-        str = str.replaceAll("[^a-z0-9]", "");
+        str = str.toLowerCase().replaceAll("\\s+", "");
 
         int start = 0;
         int end = str.length() - 1;
@@ -18,12 +17,17 @@ public class PalindromeApp {
 
         return true;
     }
+}
+
+public class Main {
 
     public static void main(String[] args) {
 
-        String input = "A man a plan a canal Panama";
+        PalindromeChecker checker = new PalindromeChecker();
 
-        if (isPalindrome(input))
+        String word = "level";
+
+        if (checker.checkPalindrome(word))
             System.out.println("Palindrome");
         else
             System.out.println("Not Palindrome");
